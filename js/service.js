@@ -1,29 +1,26 @@
 // Create the angular module
-var toDoApp = angular.module("toDoApp", []);
+var weatherApp = angular.module("weatherApp", []);
 
 // Define the controller in the angular module
-toDoApp.controller("toDoController", ["$scope", function($scope) {
-	$scope.empty = ("All done for the day! See whats on the agenda tomorrow...");
-	$scope.tasks = [
-		{"name": "Feed the dogs", "done": false}, 
-		{"name": "Take the garbage out", "done": false},
-	];
-	$scope.getTotalTasks = function() {
-		return $scope.tasks.length;
-	}
-	$scope.clearCompleted = function() {
-		$scope.tasks = _.filter($scope.tasks, function(task) {
-			return !(task.done);
+weatherApp.controller("weatherCtrl", function($scope, $http) 
+	{
+		$http.jsonp('http://api.wunderground.com/api/f6ce547b83755842/conditions/q/CA/San_Francisco.json?callback=JSON_CALLBACK').success(function(data) {
+			$scope.weather = data.current_observation;
 		});
-		if ($scope.tasks == []) {
+		// $scope.zip = "";
+		// conditionCurrent.getWeatherConditions().success(function(data) {
+		// 	$scope.weatherStatus = data.weather;
+		// 	$scope.icon = data.icon_url;
+		// });
+	// $scope.weatherStatus = "Sunny";
+	// $scope.icon = "http://icons.wxug.com/i/c/k/clear.gif"
+});
 
-		}
-	}
-	$scope.addTask = function() {
-		$scope.tasks.push({"name": $scope.newTaskName, "done": false});
-		$scope.newTaskName = "";
-	}	
-	$scope.isEmpty = function() {
-		return $scope.getTotalTasks() == 0;
-	}
-}]);
+// weatherApp.factory("conditionCurrent", function($http) {
+// 	return {
+// 		getWeatherConditions: function() {
+// 			var url = "http://api.wunderground.com/api/f6ce547b83755842/conditions/q/CA/San_Francisco.json";
+// 			return $http.get(url);
+// 		}
+// 	};
+// });
