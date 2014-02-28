@@ -10,10 +10,7 @@ weatherApp.controller("weatherCtrl", ["$scope", "currentConditions", function($s
 		.success(function(data) {
  			if (!data.response.error) {
  				$scope.weather = data.current_observation;
- 			} else {
- 				$scope.weather.weather = "unknown; we can't find your city!";
- 				$scope.weather.display_location.city = "";
-
+ 				$scope.showWeather = true;
  			}
 		})
 	};

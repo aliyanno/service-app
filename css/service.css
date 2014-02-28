@@ -3,6 +3,7 @@
 }
 body {
 	background:#aaa;
+	text-align: center;
 }
 .border-bottom {
 	border-bottom: 1px solid #ddd;
