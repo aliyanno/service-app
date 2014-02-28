@@ -6,6 +6,7 @@
 	<link rel="stylesheet" href="css/service.css">
 	<script src="js/underscore.js"></script>
 	<script src="js/angular.js"></script>
+	<script type="text/javascript" src="js/angular-resource.js"></script>
 	<script src="js/service.js"></script>
 </head>
 <body ng-controller="weatherCtrl">
@@ -17,14 +18,16 @@
 			<p>Zip Code
 				<span>
 					<input class="new-input"type="text" ng-model="zip"></input>
+					<input class="get-btn" type="submit" ng-click="getLocation()" value="Get Weather"></input>
 				</span>
 			</p>
 
 			<div class="weather-box">
-				<h3>The weather right now is {{ weather.weather }}</h3>
+				<h3> The {{ weather.display_location.city }} weather right now is... {{ weather.weather }}</h3>
 				<div class="weather-status">
-					<img ng-src="{{ weather.icon_url }}"></div>
-				<p>Go outside and enjoy the sun!</p>
+					<img class="align-text" ng-src="{{ weather.icon_url }}">
+					<h3 class="inline">{{ weather.temp_f }}&deg F</h3>
+				</div>
 			</div>
 		</div>
 	</div>

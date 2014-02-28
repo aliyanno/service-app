@@ -1,5 +1,11 @@
+.align-text {
+	vertical-align: middle;
+}
 body {
-	background:#888
+	background:#aaa;
+}
+.border-bottom {
+	border-bottom: 1px solid #ddd;
 }
 .container {
 	width:960px;
@@ -18,10 +24,23 @@ body {
 	font-weight: normal;
 	font-size: 36px;
 }
-.border-bottom {
-	border-bottom: 1px solid #ddd;
+.inline {
+	display: inline;
+	padding-left: 5px;
+}
+.get-btn {
+	padding: 9px;
+	margin-top: 10px;
+	background: #339fd0;
+	border-radius: 3px;
+	border: 1px solid #268cba;
+	color:white;
+}
+.get-btn:hover {
+	background: #268cba;
 }
 .new-input {
 	height: 31px;
 	padding-left: 5px;
 }
+

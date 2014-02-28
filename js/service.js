@@ -1,26 +1,29 @@
 // Create the angular module
-var weatherApp = angular.module("weatherApp", []);
+var weatherApp = angular.module("weatherApp", ['ngResource']);
 
 // Define the controller in the angular module
-weatherApp.controller("weatherCtrl", function($scope, $http) 
-	{
-		$http.jsonp('http://api.wunderground.com/api/f6ce547b83755842/conditions/q/CA/San_Francisco.json?callback=JSON_CALLBACK').success(function(data) {
-			$scope.weather = data.current_observation;
-		});
-		// $scope.zip = "";
-		// conditionCurrent.getWeatherConditions().success(function(data) {
-		// 	$scope.weatherStatus = data.weather;
-		// 	$scope.icon = data.icon_url;
-		// });
-	// $scope.weatherStatus = "Sunny";
-	// $scope.icon = "http://icons.wxug.com/i/c/k/clear.gif"
-});
 
-// weatherApp.factory("conditionCurrent", function($http) {
-// 	return {
-// 		getWeatherConditions: function() {
-// 			var url = "http://api.wunderground.com/api/f6ce547b83755842/conditions/q/CA/San_Francisco.json";
-// 			return $http.get(url);
-// 		}
-// 	};
-// });
+weatherApp.controller("weatherCtrl", ["$scope", "currentConditions", function($scope, currentConditions)  {
+	$scope.zip = 94117;
+	$scope.getLocation = function() {
+		currentConditions.getWeather($scope.zip)
+		.success(function(data) {
+ 			if (!data.response.error) {
+ 				$scope.weather = data.current_observation;
+ 			} else {
+ 				$scope.weather.weather = "unknown; we can't find your city!";
+ 				$scope.weather.display_location.city = "";
+
+ 			}
+		})
+	};
+
+}]);
+
+weatherApp.factory("currentConditions", ["$http", function($http) {
+	return {
+		getWeather: function(zip) {
+			return $http({method: "JSONP", url: "http://api.wunderground.com/api/f6ce547b83755842/conditions/q/" + zip + ".json?callback=JSON_CALLBACK",})
+		}
+	};
+}])
